@@ -1,46 +1,160 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <title>Boston dynamics cargo studies applied a neuron robots</title>
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <h1>X Motivos para amar um Igorzinho</h1>
-       <img src="chavoso.jpeg" title="Bandeirante" alt="HTML5" width="400">
-       <h1>Ótima Companhia para role</h1>
-       <img src="festa.jpeg" title="Bandeirante" alt="HTML5" width="200">
-       <h2>Você nunca estará sozinha <br>
-        Para passar vergonha no role <br>
-       </h2>
-       <h1>Ele cozinha (quando ta inspirado)</h1>
-       <img src="pizza.jpeg" title="Bandeirante" alt="HTML5" width="200">
-       <h2>Quando inspirado igorzinho é capaz de fazer qualquer prato culinário<br>
-        Pizzas, doces,salgados e torrar sua paciência. Seu leque de receitas é bem extenso<br>
-        E convivendo com essa musa epicurista, que não fica inspirado não é mesmo?<br>
-        <img src="paty3.jpeg" title="Bandeirante" alt="HTML5" width="200">
-        </h2>
-        <h1>Gosta dos animais</h1>
-        <img src="bixo.jpeg" title="Bandeirante" alt="HTML5" width="200">
-        <h2>Principalmente quando cercado por seus semelhantes<br>
-        Igorzinho se torna uma criatura extramente feliz e dócil<br>
-        E eu sei que vc gosta de animais e ta ligado eu sou o bixo
-        <h1>ELE É UM MAAAAAAAGOOOOOO</h1>
-        <img src="mago.jpeg" title="Bandeirante" alt="HTML5" width="200">
-        <h2>Assim como o lendário gandalf o cinzento<br>
-        Igorzinho o safirico nunca se atrasará nem se adiantará<br>
-        Ele apenas chega na hora certa. Principalmente para a sessão de RPG<br>
-        </h2>
-        <h1>Ele é de exatas</h1>
-        <img src="exatas.jpeg" title="Bandeirante" alt="HTML5" width="200">
-        <h2>Com a sua falta de noção e movido a ideias merda e vontade de ajudar<br>
-        Você sabe que sempre terá alguém que você pode contar
-        </h2>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calacio Cozinha</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+      }
+      header {
+        background-color: #ff6600;
+        color: #fff;
+        text-align: center;
+        padding: 20px 10px;
+        position: relative;
+      }
+      header img {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 50px;
+        height: 50px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+      main {
+        padding: 20px;
+      }
+      section {
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      .checkbox-group,
+      .custom-fields {
+        margin-left: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .circular-checkbox {
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 2px solid #333;
+        border-radius: 50%;
+        outline: none;
+        cursor: pointer;
+      }
+      .circular-checkbox:checked {
+        background-color: #ff6600;
+      }
+      .custom-fields input[type="text"] {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+        max-width: 300px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .feijao-checkbox {
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img src="logo.jpeg" alt="Calacio Cozinha Logo" />
+      <h1>Calacio Cozinha</h1>
+    </header>
+    <main>
+      <section>
+        <h2>Marmitas Pré-definidas</h2>
+        <div class="checkbox-group">
+          <label
+            ><input
+              type="radio"
+              name="predefinidas"
+              class="circular-checkbox"
+            />
+            P</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="predefinidas"
+              class="circular-checkbox"
+            />
+            M</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="predefinidas"
+              class="circular-checkbox"
+            />
+            G</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="predefinidas"
+              class="circular-checkbox"
+            />
+            GG</label
+          >
+        </div>
+      </section>
 
-        <h1>ENTÃO CARA LEITORA, DEPOIS DE DESSA VERGONHA ALHEIA, RECHEADA DE CRINGISSE<br>
-            DESSE MAGNIFICO ROLL DE CARISMA E INTELIGÊNCIA QUE EU TIREI 1 NO DADO<br>
-            ACEITARIAS FAZER PARTE DESSA CAMPANHA CHAMADA "SÓ 20 C.....HAMAR PRA SER O AMOR DA MINHA VIDA"
-            <img src="paty2.jpeg" title="Bandeirante" alt="HTML5" width="200">
-            AMARIAS MESMO QUE EU FOSSE UM PEIXE BOI? SIM
-        </h1>
-    </body>
+      <section>
+        <h2>Marmitas Personalizadas</h2>
+        <div class="custom-fields">
+          <label
+            >Arroz
+            <input type="text" name="arroz" />
+          </label>
+          <label
+            >Feijão
+            <span class="feijao-checkbox">
+              <input type="text" name="feijao" disabled />
+              <input
+                type="checkbox"
+                class="circular-checkbox"
+                onclick="toggleField(this, 'feijao')"
+              />
+            </span>
+          </label>
+          <label
+            >Proteína
+            <input type="text" name="proteina" />
+          </label>
+          <label
+            >Vegetais
+            <input type="text" name="vegetais" />
+          </label>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      function toggleField(checkbox, fieldName) {
+        const field = document.querySelector(`input[name="${fieldName}"]`);
+        field.disabled = !checkbox.checked;
+      }
+    </script>
+  </body>
 </html>
