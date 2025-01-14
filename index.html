@@ -90,6 +90,7 @@
               type="radio"
               name="predefinidas"
               class="circular-checkbox"
+              value="P"
             />
             P</label
           >
@@ -98,6 +99,7 @@
               type="radio"
               name="predefinidas"
               class="circular-checkbox"
+              value="M"
             />
             M</label
           >
@@ -106,6 +108,7 @@
               type="radio"
               name="predefinidas"
               class="circular-checkbox"
+              value="G"
             />
             G</label
           >
@@ -114,6 +117,7 @@
               type="radio"
               name="predefinidas"
               class="circular-checkbox"
+              value="GG"
             />
             GG</label
           >
@@ -123,12 +127,12 @@
       <section>
         <h2>Marmitas Personalizadas</h2>
         <div class="custom-fields">
-          <label
-            >Arroz
+          <label>
+            Arroz
             <input type="text" name="arroz" />
           </label>
-          <label
-            >Feijão
+          <label>
+            Feijão
             <span class="feijao-checkbox">
               <input type="text" name="feijao" disabled />
               <input
@@ -138,22 +142,61 @@
               />
             </span>
           </label>
-          <label
-            >Proteína
+          <label>
+            Proteína
             <input type="text" name="proteina" />
           </label>
-          <label
-            >Vegetais
+          <label>
+            Vegetais
             <input type="text" name="vegetais" />
           </label>
         </div>
       </section>
+
+      <button onclick="submitForm()">Enviar</button>
     </main>
 
     <script>
       function toggleField(checkbox, fieldName) {
         const field = document.querySelector(`input[name="${fieldName}"]`);
         field.disabled = !checkbox.checked;
+      }
+
+      function submitForm() {
+        const arroz = document.querySelector('input[name="arroz"]').value;
+        const feijao = document.querySelector('input[name="feijao"]').value;
+        const proteina = document.querySelector('input[name="proteina"]').value;
+        const vegetais = document.querySelector('input[name="vegetais"]').value;
+
+        // Obtenha o tamanho da marmita selecionado
+        let predefinida = document.querySelector('input[name="predefinidas"]:checked');
+        predefinida = predefinida ? predefinida.value : null;
+
+        // Monta os dados para enviar ao backend
+        
+        const data = {
+          Carbohydrates: arroz,
+          Beans: feijao,
+          Protein: proteina,
+          Vegetables: vegetais,
+          predefinida: predefinida
+        };
+
+        // Envia os dados para o backend via POST
+        fetch('http://localhost:8000/produto/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Success:', data);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
       }
     </script>
   </body>
