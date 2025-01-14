@@ -9,22 +9,30 @@
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f4;
+        background-color: #dd722a;
         color: #333;
       }
       header {
-        background-color: #ff6600;
-        color: #fff;
+        background-color: #008000;
+        color: #333;
         text-align: center;
         padding: 20px 10px;
         position: relative;
       }
       header img {
         position: absolute;
+        top: 150px;
+        left: 600px;
+        width: 700px;
+        height: 700px;
+        opacity: 0.75;
+      }
+      section img {
+        position: absolute;
         top: 100px;
-        left: 500px;
-        width: 400px;
-        height: 400px;
+        left: 1390px;
+        width: 515px;
+        height: 515px;
       }
       h1 {
         margin: 0;
@@ -48,6 +56,9 @@
         display: block;
         margin-bottom: 5px;
       }
+      .field-container {
+        margin-bottom: 15px;
+      }
       .circular-checkbox {
         appearance: none;
         width: 18px;
@@ -58,7 +69,7 @@
         cursor: pointer;
       }
       .circular-checkbox:checked {
-        background-color: #ff6600;
+        background-color: #008000;
       }
       .custom-fields input[type="text"] {
         display: block;
@@ -74,6 +85,63 @@
         align-items: center;
         margin-bottom: 10px;
       }
+      #simulation-results {
+        margin-top: 20px;
+      }
+      .simulation-result {
+        margin-bottom: 15px;
+      }
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+          font-size: 14px;
+        }
+
+        header {
+          padding: 10px 5px;
+        }
+
+        header img {
+          position: static;
+          width: 100px;
+          height: auto;
+          margin: 10px auto;
+          display: block;
+        }
+
+        h1 {
+          font-size: 20px;
+        }
+
+        section img {
+          position: static;
+          width: 100%;
+          height: auto;
+          margin: 10px 0;
+        }
+
+        .custom-fields input[type="text"] {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        button {
+          width: 100%;
+          max-width: 100%;
+          padding: 10px;
+          margin-top: 10px;
+          font-size: 16px;
+        }
+
+        #simulation-container {
+          margin-top: 10px;
+        }
+
+        .field-container input {
+          width: 100%;
+          max-width: 100%;
+        }
+      }
     </style>
   </head>
   <body>
@@ -81,51 +149,17 @@
       <img src="logo.jpeg" alt="Calacio Cozinha Logo" />
       <h1>Calacio Cozinha</h1>
     </header>
+    <header>
+      <img src="tabela_preco.jpg" alt="comida Logo" />
+    </header>
     <main>
       <section>
-        <h2>Marmitas Pré-definidas</h2>
-        <div class="checkbox-group">
-          <label
-            ><input
-              type="radio"
-              name="predefinidas"
-              class="circular-checkbox"
-              value="P"
-            />
-            P</label
-          >
-          <label
-            ><input
-              type="radio"
-              name="predefinidas"
-              class="circular-checkbox"
-              value="M"
-            />
-            M</label
-          >
-          <label
-            ><input
-              type="radio"
-              name="predefinidas"
-              class="circular-checkbox"
-              value="G"
-            />
-            G</label
-          >
-          <label
-            ><input
-              type="radio"
-              name="predefinidas"
-              class="circular-checkbox"
-              value="GG"
-            />
-            GG</label
-          >
-        </div>
-      </section>
-
-      <section>
         <h2>Marmitas Personalizadas</h2>
+        <label>
+          Espaço para informar sua dieta<br />
+          de acordo com seu plano nutricional
+        </label>
+        <h3>Informar peso em gramas (g)</h3>
         <div class="custom-fields">
           <label>
             Arroz
@@ -144,16 +178,51 @@
           </label>
           <label>
             Proteína
+            <div>
+              <input type="radio" name="protein-type" value="animal" checked />
+              Animal
+              <input type="radio" name="protein-type" value="vegetal" /> Vegetal
+            </div>
             <input type="text" name="proteina" />
           </label>
           <label>
             Vegetais
             <input type="text" name="vegetais" />
           </label>
+
+          <label>
+            Nome
+            <input type="text" name="nome" />
+          </label>
+
+          <label>
+            Quantidade
+            <input type="text" name="quantidade" />
+          </label>
         </div>
       </section>
-
+      <button onclick="simulate()">Simular</button>
       <button onclick="submitForm()">Enviar</button>
+
+      <div id="simulation-results">
+        <div class="simulation-result">
+          <h3>Simulação de Produto Unitário:</h3>
+          <label for="simulation-result">Resultado:</label>
+          <input type="text" id="simulation-result" disabled />
+        </div>
+        <div class="simulation-result">
+          <h3>Simulação de Produto Semanal:</h3>
+          <label><strong>Kit com 10 unidades</strong></label>
+          <label for="simulation-result-semanal">Resultado:</label>
+          <input type="text" id="simulation-result-semanal" disabled />
+        </div>
+        <div class="simulation-result">
+          <h3>Simulação de Produto Mensal:</h3>
+          <label><strong>Kit com 40 unidades</strong></label>
+          <label for="simulation-result-mensal">Resultado:</label>
+          <input type="text" id="simulation-result-mensal" disabled />
+        </div>
+      </div>
     </main>
 
     <script>
@@ -162,40 +231,87 @@
         field.disabled = !checkbox.checked;
       }
 
+      async function simulate() {
+        const nome = document.querySelector('input[name="nome"]').value;
+        const arroz = document.querySelector('input[name="arroz"]').value;
+        const feijao = document.querySelector('input[name="feijao"]').value;
+        const proteina = document.querySelector('input[name="proteina"]').value;
+        const proteinType = document.querySelector(
+          'input[name="protein-type"]:checked'
+        ).value;
+        const vegetais = document.querySelector('input[name="vegetais"]').value;
+        const quantidade = document.querySelector(
+          'input[name="quantidade"]'
+        ).value;
+
+        const data = {
+          name: nome,
+          price: 0.0,
+          Carbohydrates: arroz,
+          Beans: feijao,
+          Protein: proteina,
+          ProteinType: proteinType,
+          Vegetables: vegetais,
+          quantity: 0,
+        };
+
+        const response = await fetch("http://127.0.0.1:8000/simulação/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        const dado = await response.json();
+        const result = dado.price;
+        const result_weekly = dado.weekly;
+        const result_monthly = dado.monthly;
+
+        document.getElementById("simulation-result").value = result;
+        document.getElementById("simulation-result-semanal").value =
+          result_weekly * 10;
+        document.getElementById("simulation-result-mensal").value =
+          result_monthly * 40;
+      }
+
       function submitForm() {
+        const nome = document.querySelector('input[name="nome"]').value;
         const arroz = document.querySelector('input[name="arroz"]').value;
         const feijao = document.querySelector('input[name="feijao"]').value;
         const proteina = document.querySelector('input[name="proteina"]').value;
         const vegetais = document.querySelector('input[name="vegetais"]').value;
+        const quantidade = document.querySelector(
+          'input[name="quantidade"]'
+        ).value;
 
-        // Obtenha o tamanho da marmita selecionado
-        let predefinida = document.querySelector('input[name="predefinidas"]:checked');
-        predefinida = predefinida ? predefinida.value : null;
-
-        // Monta os dados para enviar ao backend
-        
         const data = {
+          name: nome,
+          price: 0.0,
+          priceWeekly: 0.0,
+          priceMonthly: 0.0,
           Carbohydrates: arroz,
           Beans: feijao,
           Protein: proteina,
           Vegetables: vegetais,
-          predefinida: predefinida
+          quantity: quantidade,
         };
 
-        // Envia os dados para o backend via POST
-        fetch('http://localhost:8000/products/', {
-          method: 'POST',
+        fetch("http://127.0.0.1:8000/products/", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
+            accept: "application/json",
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(data),
         })
-          .then(response => response.json())
-          .then(data => {
-            console.log('Success:', data);
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
           })
           .catch((error) => {
-            console.error('Error:', error);
+            console.error("Error:", error);
           });
       }
     </script>
